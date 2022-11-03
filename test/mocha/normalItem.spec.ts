@@ -1,3 +1,4 @@
+import { errors } from "@/errors";
 import { GildedRose } from "@/gildedRose";
 import { Item } from "@/Item";
 import { expect } from "chai";
@@ -22,11 +23,8 @@ describe("Normal Items", () => {
   });
 
   it("The Quality of an item is never negative", () => {
-    const gildedRose = new GildedRose([new Item("+5 Dexterity Vest", 10, 20)]);
-    for (let i = 0; i < 20; i++) {
-      gildedRose.updateQuality();
-    }
-    expect(gildedRose.items[0].quality).to.greaterThanOrEqual(0);
-    expect(gildedRose.items[0].sellIn).to.equal(-10);
+    expect(
+      () => new GildedRose([new Item("+5 Dexterity Vest", 10, -20)])
+    ).to.throw(errors.qualityError);
   });
 });
