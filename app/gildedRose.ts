@@ -29,34 +29,38 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
-      if (item.name === spacialItemName.agedBrie) {
-        if (item.quality < 50) {
-          const value = item.sellIn > 0 ? 1 : 2;
-          item.quality = item.quality + value;
-        }
-        item.sellIn = item.sellIn - 1;
-      } else if (item.name === spacialItemName.backstage) {
-        if (item.quality < 50) {
-          if (item.sellIn > 10) {
-            item.quality = item.quality + 1;
-          } else if (item.sellIn <= 10 && item.sellIn > 5) {
-            item.quality = item.quality + 2;
-          } else if (item.sellIn <= 5 && item.sellIn > 0) {
-            item.quality = item.quality + 3;
-          }
-        }
 
-        if (item.sellIn <= 0) {
-          item.quality = 0;
-        }
-        item.sellIn = item.sellIn - 1;
-      } else if (item.name === spacialItemName.sulfuras) {
-      } else {
-        if (item.quality < 50) {
-          const value = item.sellIn > 0 ? -1 : -2;
-          item.quality = item.quality + value;
-        }
-        item.sellIn = item.sellIn - 1;
+      switch (item.name) {
+        case spacialItemName.agedBrie:
+          if (item.quality < 50) {
+            const value = item.sellIn > 0 ? 1 : 2;
+            item.quality = item.quality + value;
+          }
+          item.sellIn = item.sellIn - 1;
+          break;
+        case spacialItemName.backstage:
+          if (item.quality < 50) {
+            if (item.sellIn > 10) {
+              item.quality = item.quality + 1;
+            } else if (item.sellIn <= 10 && item.sellIn > 5) {
+              item.quality = item.quality + 2;
+            } else if (item.sellIn <= 5 && item.sellIn > 0) {
+              item.quality = item.quality + 3;
+            }
+          }
+          if (item.sellIn <= 0) {
+            item.quality = 0;
+          }
+          item.sellIn = item.sellIn - 1;
+          break;
+        case spacialItemName.sulfuras:
+          break;
+        default:
+          if (item.quality < 50) {
+            const value = item.sellIn > 0 ? -1 : -2;
+            item.quality = item.quality + value;
+          }
+          item.sellIn = item.sellIn - 1;
       }
     }
 
