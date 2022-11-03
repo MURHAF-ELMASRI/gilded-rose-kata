@@ -1,3 +1,3 @@
 export const errors = {
-  qualityError: "quality should be <= 50",
+  qualityError: "quality wrong value",
 };
