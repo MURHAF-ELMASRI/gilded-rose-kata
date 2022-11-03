@@ -25,7 +25,8 @@ describe("Aged Brie Item", () => {
 
   it("should prevent quality increases greater than 50", () => {
     const gildedRose = new GildedRose([new Item("Aged Brie", 0, 0)]);
-    for (let day = 0; day < 52; day++) {
+    const day = 52;
+    for (let i = 0; i < day; i++) {
       gildedRose.updateQuality();
     }
     expect(gildedRose.items[0].quality).to.equal(50);
