@@ -1,5 +1,5 @@
 export const spacialItemName = {
   backstage: "Backstage passes to a TAFKAL80ETC concert",
-  aged: "Aged Brie",
+  agedBrie: "Aged Brie",
   sulfuras: "Sulfuras, Hand of Ragnaros",
 };

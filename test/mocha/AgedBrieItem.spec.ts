@@ -6,7 +6,7 @@ import { expect } from "chai";
 describe("Aged Brie Item", () => {
   it("should increases in Quality the older it gets less than sellIn", () => {
     let day = 5;
-    const gildedRose = new GildedRose([new Item(spacialItemName.aged, 5, 2)]);
+    const gildedRose = new GildedRose([new Item(spacialItemName.agedBrie, 5, 2)]);
     for (let i = 0; i < day; i++) {
       gildedRose.updateQuality();
     }
@@ -16,7 +16,7 @@ describe("Aged Brie Item", () => {
 
   it("should increases in Quality 2 times after sellIn passes", () => {
     let day = 10;
-    const gildedRose = new GildedRose([new Item(spacialItemName.aged, 5, 2)]);
+    const gildedRose = new GildedRose([new Item(spacialItemName.agedBrie, 5, 2)]);
     for (let i = 0; i < day; i++) {
       gildedRose.updateQuality();
     }
@@ -25,7 +25,7 @@ describe("Aged Brie Item", () => {
   });
 
   it("should prevent quality increases greater than 50", () => {
-    const gildedRose = new GildedRose([new Item(spacialItemName.aged, 0, 0)]);
+    const gildedRose = new GildedRose([new Item(spacialItemName.agedBrie, 0, 0)]);
     const day = 52;
     for (let i = 0; i < day; i++) {
       gildedRose.updateQuality();
