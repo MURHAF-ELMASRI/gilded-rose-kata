@@ -13,7 +13,7 @@ export class GildedRose {
   }
 
   constructor(items = [] as Array<Item>) {
-    if (this.checkItemsAllowed(items)) {
+    if (!this.checkItemsAllowed(items)) {
       throw new Error(errors.qualityError);
     }
 
