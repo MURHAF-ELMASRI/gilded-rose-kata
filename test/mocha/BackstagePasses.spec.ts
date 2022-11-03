@@ -13,7 +13,7 @@ describe("Backstage passes", () => {
       gildedRose.updateQuality();
     }
     expect(gildedRose.items[0].quality).to.equal(0);
-    expect(gildedRose.items[0].sellIn).to.equal(0);
+    expect(gildedRose.items[0].sellIn).to.equal(-1);
   });
 
   it("should quality increases by 2 if 10 <= days< 5 ", () => {
@@ -40,7 +40,7 @@ describe("Backstage passes", () => {
     expect(gildedRose.items[0].sellIn).to.equal(0);
   });
 
-  it("should quality not exceed 0 ", () => {
+  it("should quality not exceed 50 ", () => {
     const day = 1;
     const gildedRose = new GildedRose([
       new Item(spacialItemName.backstage, 5, 50),
@@ -49,10 +49,10 @@ describe("Backstage passes", () => {
       gildedRose.updateQuality();
     }
     expect(gildedRose.items[0].quality).to.equal(50);
-    expect(gildedRose.items[0].sellIn).to.equal(0);
+    expect(gildedRose.items[0].sellIn).to.equal(4);
   });
 
-  it("should quality increase by 1 days>10", () => {
+  it("should quality increase by 1 if days > 10", () => {
     const day = 1;
     const gildedRose = new GildedRose([
       new Item("Backstage passes to a TAFKAL80ETC concert", 11, 1),
@@ -61,6 +61,6 @@ describe("Backstage passes", () => {
       gildedRose.updateQuality();
     }
     expect(gildedRose.items[0].quality).to.equal(2);
-    expect(gildedRose.items[0].sellIn).to.equal(0);
+    expect(gildedRose.items[0].sellIn).to.equal(10);
   });
 });
