@@ -5,11 +5,16 @@ export class GildedRose {
   items: Array<Item>;
 
   checkItemsAllowed(items: Array<Item>) {
-    return items.every(
-      (item) =>
-        (item.name !== "Sulfuras" && item.quality <= 50) ||
-        (item.name === "Sulfuras" && item.quality === 80)
-    );
+    return items.every((item) => {
+      if (item.quality < 0) {
+        return false;
+      }
+      if (item.name === "Sulfuras, Hand of Ragnaros") {
+        return item.quality === 80;
+      }
+
+      return true;
+    });
   }
 
   constructor(items = [] as Array<Item>) {
