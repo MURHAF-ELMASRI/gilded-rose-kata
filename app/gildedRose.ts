@@ -17,50 +17,65 @@ export class GildedRose {
       return true;
     });
   }
+  agedBrieRule(item: Item) {
+    if (item.quality < 50) {
+      const value = item.sellIn > 0 ? 1 : 2;
+      item.quality = item.quality + value;
+    }
+    item.sellIn = item.sellIn - 1;
+    return item;
+  }
+
+  backstageRule(item: Item) {
+    if (item.quality < 50) {
+      if (item.sellIn > 10) {
+        item.quality = item.quality + 1;
+      } else if (item.sellIn <= 10 && item.sellIn > 5) {
+        item.quality = item.quality + 2;
+      } else if (item.sellIn <= 5 && item.sellIn > 0) {
+        item.quality = item.quality + 3;
+      }
+    }
+    if (item.sellIn <= 0) {
+      item.quality = 0;
+    }
+    item.sellIn = item.sellIn - 1;
+    return item;
+  }
+
+  sulfurasRule(item: Item) {
+    return item;
+  }
+  normalItemRule(item: Item) {
+    if (item.quality < 50) {
+      const value = item.sellIn > 0 ? -1 : -2;
+      item.quality = item.quality + value;
+    }
+    item.sellIn = item.sellIn - 1;
+    return item;
+  }
 
   constructor(items = [] as Array<Item>) {
     if (!this.checkItemsAllowed(items)) {
       throw new Error(errors.qualityError);
     }
-
     this.items = items;
   }
-
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
-
       switch (item.name) {
         case spacialItemName.agedBrie:
-          if (item.quality < 50) {
-            const value = item.sellIn > 0 ? 1 : 2;
-            item.quality = item.quality + value;
-          }
-          item.sellIn = item.sellIn - 1;
+          this.agedBrieRule(item);
           break;
         case spacialItemName.backstage:
-          if (item.quality < 50) {
-            if (item.sellIn > 10) {
-              item.quality = item.quality + 1;
-            } else if (item.sellIn <= 10 && item.sellIn > 5) {
-              item.quality = item.quality + 2;
-            } else if (item.sellIn <= 5 && item.sellIn > 0) {
-              item.quality = item.quality + 3;
-            }
-          }
-          if (item.sellIn <= 0) {
-            item.quality = 0;
-          }
-          item.sellIn = item.sellIn - 1;
+          this.backstageRule(item);
           break;
         case spacialItemName.sulfuras:
+          this.sulfurasRule(item);
           break;
         default:
-          if (item.quality < 50) {
-            const value = item.sellIn > 0 ? -1 : -2;
-            item.quality = item.quality + value;
-          }
-          item.sellIn = item.sellIn - 1;
+          this.normalItemRule(item);
       }
     }
 
