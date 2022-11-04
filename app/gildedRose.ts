@@ -57,11 +57,26 @@ export class GildedRose {
     return item;
   }
 
-  normalItemRule(item: Item) {
-    if (item.quality < 50) {
-      const value = item.sellIn > 0 ? -1 : -2;
-      item.quality = item.quality + value;
+  conjuredRule(item: Item) {
+    let value = 0;
+    if (item.quality < 50 && item.quality > 0) {
+      value = item.sellIn > 0 ? -2 : -4;
+      value = item.quality + value < 0 ? 0 : value;
     }
+
+    item.quality = item.quality + value;
+    item.sellIn = item.sellIn - 1;
+    return item;
+  }
+
+  normalItemRule(item: Item) {
+    let value = 0;
+    if (item.quality < 50 && item.quality > 0) {
+      value = item.sellIn > 0 ? -1 : -2;
+      value = item.quality + value < 0 ? 0 : value;
+    }
+
+    item.quality = item.quality + value;
     item.sellIn = item.sellIn - 1;
     return item;
   }
@@ -77,17 +92,25 @@ export class GildedRose {
       const item = this.items[i];
       let newItem: Item;
       switch (item.name) {
-        case spacialItemName.agedBrie:
+        case spacialItemName.agedBrie: {
           newItem = this.agedBrieRule(item);
           break;
-        case spacialItemName.backstage:
+        }
+        case spacialItemName.backstage: {
           newItem = this.backstageRule(item);
           break;
-        case spacialItemName.sulfuras:
+        }
+        case spacialItemName.sulfuras: {
           newItem = this.sulfurasRule(item);
           break;
-        default:
+        }
+        case spacialItemName.conjured: {
+          newItem = this.conjuredRule(item);
+          break;
+        }
+        default: {
           newItem = this.normalItemRule(item);
+        }
       }
       item[i] = newItem;
     }
