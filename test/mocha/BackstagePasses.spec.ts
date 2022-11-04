@@ -41,7 +41,7 @@ describe("Backstage passes", () => {
   });
 
   it("should quality not exceed 50 ", () => {
-    const day = 1;
+    const day = 3;
     const gildedRose = new GildedRose([
       new Item(spacialItemName.backstage, 5, 50),
     ]);
@@ -49,7 +49,7 @@ describe("Backstage passes", () => {
       gildedRose.updateQuality();
     }
     expect(gildedRose.items[0].quality).to.equal(50);
-    expect(gildedRose.items[0].sellIn).to.equal(4);
+    expect(gildedRose.items[0].sellIn).to.equal(2);
   });
 
   it("should quality increase by 1 if days > 10", () => {

@@ -32,7 +32,7 @@ export class GildedRose {
       item.sellIn = item.sellIn - 1;
       return item;
     }
-    if (item.quality > 50) {
+    if (item.quality === 50) {
       item.sellIn = item.sellIn - 1;
       return item;
     }
@@ -46,9 +46,9 @@ export class GildedRose {
     if (item.sellIn <= 5 && item.sellIn > 0) {
       incrementValue = 3;
     }
-    if (item.quality + incrementValue < 50) {
-      item.quality = item.quality + incrementValue;
-    }
+
+    item.quality = item.quality + incrementValue;
+    item.quality = item.quality < 50 ? item.quality : 50;
     item.sellIn = item.sellIn - 1;
     return item;
   }
